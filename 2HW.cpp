@@ -20,8 +20,12 @@ bool miller_rabin(int data){
 
     k++;
   }
-  a = rand() % (data-2) + 2;
-
+  srand (time(NULL));
+  int dataminus2 = data - 2;
+  int a;
+  a = rand() % (dataminus2) + 2;
+  //int x = pow(a,m) % data;
+  cout << a << ' ';
 
   return isPrime;
 }
@@ -31,6 +35,7 @@ int main(){
   ifstream infile;
   infile.open("hw2.dat", ios::in);
   int data;
+  infile >> data;
   for (; !infile.eof() ; infile >> data){
     cout << data << " ";
     if(miller_rabin(data)){
