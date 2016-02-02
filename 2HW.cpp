@@ -16,8 +16,8 @@ int main(){
   ifstream infile;
   infile.open("hw2.dat", ios::in);
   int data;
-  while (!infile.eof()){
-    infile >> data;
+  for (; !infile.eof() ; infile >> data){
+
     cout << data << " ";
     if(miller_rabin(data)){
       cout << "true" << endl;
