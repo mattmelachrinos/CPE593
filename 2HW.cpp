@@ -24,7 +24,8 @@ bool miller_rabin(int data){
   int dataminus2 = data - 2;
   int a;
   a = rand() % (dataminus2) + 2;
-  //int x = pow(a,m) % data;
+  int x = pow(a,m);
+  x = x % data;
   cout << a << ' ';
 
   return isPrime;
