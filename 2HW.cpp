@@ -24,36 +24,37 @@ int powerMod(long long x , long long n , long long m){
     x = x*x % m;
     n = n/2;
   }
+  return prod;
 }
 
-bool miller_rabin(int data){
-  if (data < 2)
+bool miller_rabin(int n){
+  if (n < 2)
       return false;
-  else if (data == 2)
+  else if (n == 2)
       return true;
-  else if (data%2 == 0)
+  else if (n%2 == 0)
       return false;
 
   long long k = 1;
-  long long m = data-1;
+  long long m = n-1;
   while (m%2 == 0){
     k++;
     m /= 2;
   }
   srand (time(NULL));
-  long long dataminus2 = data - 2;
+  long long nminus2 = n - 2;
   long long a;
   long long x;
   bool nextWitness;
 
   for (long j=1 ; j< 10 ; j++){
-    a = rand() % (dataminus2) + 2;
-    x = powerMod(a,m,data);
+    a = rand() % (nminus2) + 2;
+    x = powerMod(a,m,n);
     nextWitness = false;
-    if (x == 1 || x == data - 1)
+    if (x == 1 || x == n - 1)
       continue;
     for (int q ; q < k ; q++){
-      x = x*x % m;
+      x = x*x % n;
       if (x == 1)
         return false;
       else if ( x == m-1){
@@ -74,17 +75,17 @@ int main(){
   ifstream infile;
   infile.open("hw2.dat", ios::in);
   if (infile.is_open()){
-    int data;
-    infile >> data;
+    int n;
+    infile >> n;
     while ( !infile.eof() ){
-      cout << data << " ";
-      if(miller_rabin(data)){
+      cout << n << " ";
+      if(miller_rabin(n)){
         cout << "true" << endl;
       }
       else{
         cout << "false" << endl;
       }
-      infile >> data;
+      infile >> n;
     }
 
 
