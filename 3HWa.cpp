@@ -35,8 +35,6 @@ int search(int a[], int key , int size){
 				start = guess;
 				guess = (start + end)/2;
 			}
-
-
 			if (guess <= start || guess >= end){
 				number = -number;
 				break;
