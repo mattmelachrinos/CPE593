@@ -47,11 +47,23 @@ class GrowArray {
         p[i+n-1] = v[i];
     }
     void addStart(int v [] , int n){
-
+      int* temp = new int[used];
+      copy(p,p+used,temp);
+      used += n;
+      if (used > size)
+        grow();
+      for (int i = 0 ; i < n ; i++)
+        p[i] = v[i];
+      copy(temp, temp+used-n, p+n);
+      delete temp;
     }
-    void removeFront(int n[]){
-
-      used-= n[0];
+    void removeFront(int v[]){
+      int a = v[0];
+      int* temp = new int[used];
+      copy(p+a, p+used,temp);
+      copy(temp,temp+used-a, p);
+      size -= a;
+      delete temp;
     }
     void removeBack(int n[]){
       used -= n[0];
@@ -102,14 +114,23 @@ int main(){
       for (int i = 0 ; i < n ; i++){
         iss >> values[i];
       }
-      enum instructionType {ADD_FRONT, ADD_BACK, REMOVE_FRONT, REMOVE_BACK, OUTPUT};
-      switch (instruction){
-        case ADD_FRONT: a.addStart(values,n);
-        case ADD_BACK: a.addEnd(values,n);
-        case REMOVE_FRONT: a.removeFront(values);
-        case REMOVE_BACK: a.removeBack(values);
-        case OUTPUT: a.printArray();
+
+      if (instruction == "ADD_FRONT"){
+        a.addStart(values,n);
       }
+      else if (instruction == "ADD_BACK"){
+        a.addEnd(values,n);
+      }
+      else if (instruction == "REMOVE_FRONT"){
+        a.removeFront(values);
+      }
+      else if (instruction == "REMOVE_BACK"){
+        a.removeBack(values);
+      }
+      else if (instruction == "OUTPUT"){
+        a.printArray();
+      }
+
 
       cout << instruction << endl;
     }
