@@ -86,7 +86,7 @@ public:
 
 int main() {
 	Hashmap m(10000);
-	for (int i = 0; i < 100000;i++) {
+	for (int i = 0; i < 10000;i++) {
 		char buf[256];
 		sprintf("%d", buf, i);
 		string s = buf;
@@ -94,6 +94,5 @@ int main() {
 	}
 	Hashmap m2 = m;
 	Hashmap m3 = m;
-	m2 = m;
 
 }
