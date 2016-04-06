@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <fstream>
+#include <array>
 using namespace std;
 
 class Hashmap {
@@ -82,9 +84,14 @@ public:
 		hist[count]++;
 		table[bin] = new string(s);
 	}
+	bool check(string test){
+		if (table[hash(test)])
+			return true;
+		return false;
+	}
 	void printHist(){
 		cout << "insert    ||    Count" << endl;
-		for (i = 0 ; i<hist.size() ; i++)
+		for (int i = 0 ; i<sizeof(hist) ; i++)
 			cout << i << "             " << hist[i] << endl;
 	}
 };
@@ -99,15 +106,22 @@ int main() {
 		while(!infile.eof()){
 			getline(infile,word);
 			m.add(word);
-			if(i%10000 == 0){
-				cout << i << endl;
-			}
+			cout << i << endl;
 			i++;
 		}
 	}
 	infile.close();
 
+	infile.open("hw8.dat", ios::in);
+	string test;
+	if (infile.is_open()){
+		while(!infile.eof()){
+			getline(infile,test);
+			cout << test << m.check(test); << endl;
+		}
+	}
+
 	m.printHist();
 
-return 0;
+	return 0;
 }
