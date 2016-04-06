@@ -82,17 +82,32 @@ public:
 		hist[count]++;
 		table[bin] = new string(s);
 	}
+	void printHist(){
+		cout << "insert    ||    Count" << endl;
+		for (i = 0 ; i<hist.size() ; i++)
+			cout << i << "             " << hist[i] << endl;
+	}
 };
 
 int main() {
-	Hashmap m(10000);
-	for (int i = 0; i < 10000;i++) {
-		char buf[256];
-		sprintf("%d", buf, i);
-		string s = buf;
-    m.add(s);
+	Hashmap m(100000);
+	ifstream infile;
+	infile.open("dict.txt", ios::in);
+	string word;
+	if(infile.is_open()){
+		int i = 0;
+		while(!infile.eof()){
+			getline(infile,word);
+			m.add(word);
+			if(i%10000 == 0){
+				cout << i << endl;
+			}
+			i++;
+		}
 	}
-	Hashmap m2 = m;
-	Hashmap m3 = m;
+	infile.close();
 
+	m.printHist();
+
+return 0;
 }
