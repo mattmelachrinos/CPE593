@@ -10,6 +10,7 @@ private:
   public:
     Node* next[26];
     bool isWord;
+    string word;
   };
 
   Node* root;
@@ -34,6 +35,7 @@ public:
       }
     }
     temp->isWord = true;
+    temp->word = word;
 
   }
 
@@ -51,6 +53,21 @@ public:
       }
     }
     return temp->isWord;
+  }
+
+  Node * getRoot(){
+    return root;
+  }
+
+  void findAllWords(char **array, Node *pointer, int x, int y){
+    while(0 < x  && x < 4){
+      while(0 < y && y < 4){
+        if (pointer->isWord)
+          cout << pointer->word << " is a word." << endl;
+        if (pointer != nullptr)
+          findAllWords(array, pointer, x, y);
+      }
+    }
   }
 };
 
@@ -72,7 +89,7 @@ int main() {
   infile.close();
 //Trie Dictionary is now built
 
-
+//Building boggle array below
   ifstream boggleFile;
   boggleFile.open("boggle.dat", ios::in);
   char letter;
@@ -80,14 +97,25 @@ int main() {
 
   if(boggleFile.is_open())
     boggleFile >> size;
-  char boggleArray[size*size];
+  char **boggleArray;
+  boggleArray = new char *[size];
+  for(int i = 0; i <size; i++)
+      boggleArray[i] = new char[size];
 
-  for(int i = 0 ; i < size*size ; i++){
-    boggleFile >> letter;
-    boggleArray[i] = letter;
-    cout << boggleArray[i] << endl;
+
+  for(int i = 0 ; i < size ; i++){
+    for(int j = 0 ; j < size ; j++){
+      boggleFile >> letter;
+      boggleArray[i][j]= letter;
+      cout << boggleArray[i][j] << endl;
+    }
   }
+//boggle file built
 
+  for(int x = 0 ; x < size ; x++){
+    for(int y = 0 ; y < size ; y++)
+      dictTrie.findAllWords(boggleArray , dictTrie.getRoot(), x, y);
+  }
 
 
 
