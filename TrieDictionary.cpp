@@ -54,22 +54,42 @@ public:
   }
 };
 
+
+
 int main() {
   Trie dictTrie;
   ifstream infile;
   infile.open("dict.txt", ios::in);
   string word;
+  // read the dict file
   if(infile.is_open()){
-    int i = 0;
     while(!infile.eof()){
       getline(infile,word);
       dictTrie.load(word);
-      if(i%10000 == 0){
-        cout << i << endl;
-      }
-      i++;
+
     }
   }
   infile.close();
+//Trie Dictionary is now built
+
+
+  ifstream boggleFile;
+  boggleFile.open("boggle.dat", ios::in);
+  char letter;
+  int size;
+
+  if(boggleFile.is_open())
+    boggleFile >> size;
+  char boggleArray[size*size];
+
+  for(int i = 0 ; i < size*size ; i++){
+    boggleFile >> letter;
+    boggleArray[i] = letter;
+    cout << boggleArray[i] << endl;
+  }
+
+
+
+
   return 0;
 }
